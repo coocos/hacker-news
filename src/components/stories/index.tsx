@@ -31,7 +31,16 @@ function StoryItem({
           <h2>{title}</h2>
           <div className="flex text-gray-400">
             <span className="mr-3">{author}</span>
-            <span className="mr-3">{url && new URL(url).hostname}</span>
+            {url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="mr-3 hover:underline"
+              >
+                {new URL(url).hostname.replace(/^www\./i, "")}
+              </a>
+            )}
             <span className="mr-3">{timeSince(created_at)}</span>
           </div>
         </div>

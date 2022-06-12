@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Stories } from ".";
 
-test("shows several stories", async () => {
+test("loads and shows stories", async () => {
   global.fetch = jest.fn().mockImplementationOnce(() =>
     Promise.resolve({
       json: () =>
@@ -46,4 +46,59 @@ test("shows several stories", async () => {
   expect(second).toHaveTextContent("keynes");
   expect(second).toHaveTextContent("671 points");
   expect(second).toHaveTextContent("135");
+});
+
+test("shows link to story", async () => {
+  global.fetch = jest.fn().mockImplementationOnce(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve({
+          hits: [
+            {
+              created_at: "2022-06-10T17:14:44.000Z",
+              title: "Example title",
+              url: "http://www.base.example.com/example-title",
+              author: "ricardo",
+              points: 100,
+              num_comments: 10,
+              created_at_i: 1654881284,
+              objectID: "1772",
+            },
+          ],
+        }),
+    })
+  );
+
+  render(<Stories />);
+
+  const story = await screen.findByRole("link");
+  expect(story).toHaveTextContent("base.example.com");
+});
+
+test("strips www from story link", async () => {
+  global.fetch = jest.fn().mockImplementationOnce(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve({
+          hits: [
+            {
+              created_at: "2022-06-10T17:14:44.000Z",
+              title: "Example title",
+              url: "http://www.base.example.com/example-title",
+              author: "ricardo",
+              points: 100,
+              num_comments: 10,
+              created_at_i: 1654881284,
+              objectID: "1772",
+            },
+          ],
+        }),
+    })
+  );
+
+  render(<Stories />);
+
+  const story = await screen.findByRole("listitem");
+  expect(story).toHaveTextContent("base.example.com");
+  expect(story).not.toHaveTextContent("www.base.example.com");
 });
