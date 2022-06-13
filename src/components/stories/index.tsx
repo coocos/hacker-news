@@ -21,8 +21,8 @@ function StoryItem({
   author,
   points,
   url,
-  num_comments,
-  created_at,
+  numComments,
+  createdAt,
 }: Story) {
   return (
     <li className="my-4">
@@ -49,12 +49,12 @@ function StoryItem({
                 {new URL(url).hostname.replace(/^www\./i, "")}
               </a>
             )}
-            <span className="mr-3">{timeSince(created_at)}</span>
+            <span className="mr-3">{timeSince(createdAt)}</span>
           </div>
         </div>
         <div>
           <div className="p-3 text-center bg-gray-400 text-white">
-            {num_comments ?? 0}
+            {numComments ?? 0}
           </div>
           <span className="text-sm">{points} points</span>
         </div>
@@ -70,7 +70,7 @@ export function Stories() {
       {stories.status === "done" && (
         <ul>
           {stories.data.map((story) => (
-            <StoryItem key={story.objectID} {...story} />
+            <StoryItem key={story.objectId} {...story} />
           ))}
         </ul>
       )}
