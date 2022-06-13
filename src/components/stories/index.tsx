@@ -28,7 +28,15 @@ function StoryItem({
     <li className="my-4">
       <div className="flex">
         <div className="w-3/4 flex-1">
-          <h2>{title}</h2>
+          <h2>
+            {url ? (
+              <a href={url} target="_blank" rel="noreferrer">
+                {title}
+              </a>
+            ) : (
+              title
+            )}
+          </h2>
           <div className="flex text-gray-400">
             <span className="mr-3">{author}</span>
             {url && (

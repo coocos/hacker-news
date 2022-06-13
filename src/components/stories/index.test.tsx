@@ -48,7 +48,7 @@ test("loads and shows stories", async () => {
   expect(second).toHaveTextContent("135");
 });
 
-test("shows link to story", async () => {
+test("links to story in title", async () => {
   global.fetch = jest.fn().mockImplementationOnce(() =>
     Promise.resolve({
       json: () =>
@@ -71,11 +71,15 @@ test("shows link to story", async () => {
 
   render(<Stories />);
 
-  const story = await screen.findByRole("link");
-  expect(story).toHaveTextContent("base.example.com");
+  const link = (await screen.findAllByRole("link"))[0];
+  expect(link).toHaveAttribute(
+    "href",
+    "http://www.base.example.com/example-title"
+  );
+  expect(link).toHaveTextContent("Example title");
 });
 
-test("strips www from story link", async () => {
+test("links to story in source domain", async () => {
   global.fetch = jest.fn().mockImplementationOnce(() =>
     Promise.resolve({
       json: () =>
@@ -98,7 +102,11 @@ test("strips www from story link", async () => {
 
   render(<Stories />);
 
-  const story = await screen.findByRole("listitem");
-  expect(story).toHaveTextContent("base.example.com");
-  expect(story).not.toHaveTextContent("www.base.example.com");
+  const link = (await screen.findAllByRole("link"))[1];
+  expect(link).toHaveAttribute(
+    "href",
+    "http://www.base.example.com/example-title"
+  );
+  expect(link).toHaveTextContent("base.example.com");
+  expect(link).not.toHaveTextContent("www.base.example.com");
 });
