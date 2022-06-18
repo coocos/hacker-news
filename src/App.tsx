@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Comments } from "./components/comments";
-import { Stories } from "./components/stories";
+import { Posts } from "./components/posts";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Stories />} />
+            <Route index element={<Posts />} />
             <Route path=":storyId" element={<Comments />} />
             <Route path="*" element={<h1>Not found</h1>} />
           </Routes>

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { Stories } from ".";
+import { Posts } from ".";
 
 test("loads and shows stories", async () => {
   global.fetch = jest.fn().mockImplementationOnce(() =>
@@ -35,7 +35,7 @@ test("loads and shows stories", async () => {
 
   render(
     <MemoryRouter>
-      <Stories />
+      <Posts />
     </MemoryRouter>
   );
 
@@ -78,7 +78,7 @@ test("links to story in title", async () => {
 
   render(
     <MemoryRouter>
-      <Stories />
+      <Posts />
     </MemoryRouter>
   );
 
@@ -113,7 +113,7 @@ test("links to story in source domain", async () => {
 
   render(
     <MemoryRouter>
-      <Stories />
+      <Posts />
     </MemoryRouter>
   );
 

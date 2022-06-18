@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useDiscussion as useComments } from "../../hooks";
+import { usePostWithComments as useComments } from "../../hooks";
 
 type Props = {
   id: number;
@@ -46,11 +46,11 @@ export function Comments() {
   if (!params.storyId) {
     return <h2>No story found</h2>;
   }
-  const storyWithComments = useComments(params.storyId);
-  if (storyWithComments.status !== "done") {
+  const postWithComments = useComments(params.storyId);
+  if (postWithComments.status !== "done") {
     return null;
   }
-  const { story, comments } = storyWithComments.data;
+  const { story, comments } = postWithComments.data;
   return (
     <div>
       <header className="max-w-5xl mx-auto">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStories, getDiscussion } from "../apis/hn";
+import { getPosts, getPostWithComments } from "../apis/hn";
 
 type ApiResponse<T> =
   | {
@@ -13,9 +13,9 @@ type ApiResponse<T> =
       data: T;
     };
 
-export function useDiscussion(objectId: string) {
+export function usePostWithComments(objectId: string) {
   const [response, setResponse] = useState<
-    ApiResponse<Awaited<ReturnType<typeof getDiscussion>>>
+    ApiResponse<Awaited<ReturnType<typeof getPostWithComments>>>
   >({
     status: "loading",
   });
@@ -24,7 +24,7 @@ export function useDiscussion(objectId: string) {
     let cancelled = false;
     async function fetchStories() {
       try {
-        const discussion = await getDiscussion(objectId);
+        const discussion = await getPostWithComments(objectId);
         if (!cancelled) {
           setResponse({
             status: "done",
@@ -49,9 +49,9 @@ export function useDiscussion(objectId: string) {
   return response;
 }
 
-export function useStories() {
+export function usePosts() {
   const [response, setResponse] = useState<
-    ApiResponse<Awaited<ReturnType<typeof getStories>>>
+    ApiResponse<Awaited<ReturnType<typeof getPosts>>>
   >({
     status: "loading",
   });
@@ -60,7 +60,7 @@ export function useStories() {
     let cancelled = false;
     async function fetchStories() {
       try {
-        const stories = await getStories();
+        const stories = await getPosts();
         if (!cancelled) {
           setResponse({
             status: "done",

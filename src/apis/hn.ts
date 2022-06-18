@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const API_URL = "https://hn.algolia.com/api/v1";
 
-const StoriesApiResponse = z.object({
+const PostsApiResponse = z.object({
   hits: z
     .object({
       title: z.string(),
@@ -20,7 +20,7 @@ const StoriesApiResponse = z.object({
     .array(),
 });
 
-export type Story = Readonly<{
+export type Post = Readonly<{
   title: string;
   url: string | null;
   points: number;
@@ -30,12 +30,12 @@ export type Story = Readonly<{
   createdAt: Date;
 }>;
 
-export async function getStories(): Promise<Story[]> {
+export async function getPosts(): Promise<Post[]> {
   const response = await fetch(
     `${API_URL}/search?tags=front_page&hitsPerPage=37`
   );
   const json = await response.json();
-  return StoriesApiResponse.parse(json).hits.map((story) => ({
+  return PostsApiResponse.parse(json).hits.map((story) => ({
     title: story.title,
     url: story.url,
     author: story.author,
@@ -96,7 +96,7 @@ function camelCased(comments: CommentsApiResponse[]): Comment[] {
   );
 }
 
-export async function getDiscussion(objectId: string) {
+export async function getPostWithComments(objectId: string) {
   const response = await fetch(`${API_URL}/items/${objectId}`);
   const json = await response.json();
   const {
