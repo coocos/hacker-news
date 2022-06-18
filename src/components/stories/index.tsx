@@ -1,5 +1,6 @@
 import { useStories } from "../../hooks";
 import { Story } from "../../apis/hn";
+import { Link } from "react-router-dom";
 
 function timeSince(date: Date) {
   const hoursSince = Math.max(
@@ -21,6 +22,7 @@ function StoryItem({
   author,
   points,
   url,
+  objectId,
   numComments,
   createdAt,
 }: Story) {
@@ -30,11 +32,18 @@ function StoryItem({
         <div className="w-3/4 flex-1">
           <h2>
             {url ? (
-              <a href={url} target="_blank" rel="noreferrer">
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-600"
+              >
                 {title}
               </a>
             ) : (
-              title
+              <Link to={objectId ?? ""} className="text-gray-600">
+                {title}
+              </Link>
             )}
           </h2>
           <div className="flex text-gray-400">
@@ -44,7 +53,7 @@ function StoryItem({
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="mr-3 hover:underline"
+                className="mr-3 text-gray-600 hover:underline"
               >
                 {new URL(url).hostname.replace(/^www\./i, "")}
               </a>
@@ -53,8 +62,10 @@ function StoryItem({
           </div>
         </div>
         <div>
-          <div className="p-3 text-center bg-gray-400 text-white">
-            {numComments ?? 0}
+          <div className="p-3 text-center bg-gray-400">
+            <Link to={objectId ?? ""} className="text-white">
+              {numComments ?? 0}
+            </Link>
           </div>
           <span className="text-sm">{points} points</span>
         </div>

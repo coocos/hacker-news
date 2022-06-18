@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { Stories } from ".";
 
 test("loads and shows stories", async () => {
@@ -8,42 +9,48 @@ test("loads and shows stories", async () => {
         Promise.resolve({
           hits: [
             {
-              created_at: "2022-06-10T17:14:44.000Z",
-              title: "Breaking news",
-              url: "http://first.example.com/breaking-news",
-              author: "friedman",
-              points: 834,
-              num_comments: 152,
-              created_at_i: 1654881284,
-              objectID: "1234",
+              created_at: "2022-06-16T21:51:59.000Z",
+              title: "Deflation",
+              url: "https://en.wikipedia.org/wiki/Deflation",
+              author: "keynes",
+              points: 6,
+              num_comments: 2,
+              created_at_i: 1655416319,
+              objectID: "31771441",
             },
             {
               created_at: "2022-06-10T13:03:01.000Z",
-              title: "More breaking news",
-              url: "https://second.example.com/more-breaking-news",
-              author: "keynes",
+              title: "Inflation",
+              url: "https://www.investopedia.com/ask/answers/111314/what-causes-inflation-and-does-anyone-gain-it.asp",
+              author: "friedman",
               points: 671,
               num_comments: 135,
               created_at_i: 1654866181,
-              objectID: "2345",
+              objectID: "31771442",
             },
           ],
         }),
     })
   );
 
-  render(<Stories />);
+  render(
+    <MemoryRouter>
+      <Stories />
+    </MemoryRouter>
+  );
 
   expect(await screen.findByText("Loading")).toBeInTheDocument();
   const [first, second] = await screen.findAllByRole("listitem");
-  expect(first).toHaveTextContent("Breaking news");
-  expect(first).toHaveTextContent("first.example.com");
-  expect(first).toHaveTextContent("friedman");
-  expect(first).toHaveTextContent("834 points");
-  expect(first).toHaveTextContent("152");
-  expect(second).toHaveTextContent("More breaking news");
-  expect(second).toHaveTextContent("second.example.com");
-  expect(second).toHaveTextContent("keynes");
+
+  expect(first).toHaveTextContent("Deflation");
+  expect(first).toHaveTextContent("en.wikipedia.org");
+  expect(first).toHaveTextContent("keynes");
+  expect(first).toHaveTextContent("6 points");
+  expect(first).toHaveTextContent("2");
+
+  expect(second).toHaveTextContent("Inflation");
+  expect(second).toHaveTextContent("investopedia.com");
+  expect(second).toHaveTextContent("friedman");
   expect(second).toHaveTextContent("671 points");
   expect(second).toHaveTextContent("135");
 });
@@ -69,7 +76,11 @@ test("links to story in title", async () => {
     })
   );
 
-  render(<Stories />);
+  render(
+    <MemoryRouter>
+      <Stories />
+    </MemoryRouter>
+  );
 
   const link = (await screen.findAllByRole("link"))[0];
   expect(link).toHaveAttribute(
@@ -100,7 +111,11 @@ test("links to story in source domain", async () => {
     })
   );
 
-  render(<Stories />);
+  render(
+    <MemoryRouter>
+      <Stories />
+    </MemoryRouter>
+  );
 
   const link = (await screen.findAllByRole("link"))[1];
   expect(link).toHaveAttribute(
