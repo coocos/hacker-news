@@ -60,7 +60,7 @@ export function Comments() {
       <header className="max-w-5xl mx-auto">
         <h1>{story.title}</h1>
         <h2>{story.author}</h2>
-        <h2>{story.text}</h2>
+        {story.text && <p dangerouslySetInnerHTML={{ __html: story.text }} />}
         {story.url && (
           <a href={story.url} rel="noreferrer">
             {story.url}
