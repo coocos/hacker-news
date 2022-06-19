@@ -2,7 +2,7 @@ import { usePosts as usePosts } from "../../hooks";
 import { timeSince } from "../../utils";
 import { Link } from "react-router-dom";
 
-type Props = {
+type PostProps = {
   title: string;
   url: string | null;
   points: number;
@@ -12,7 +12,7 @@ type Props = {
   createdAt: Date;
 };
 
-function Post(post: Props) {
+export function Post(post: PostProps) {
   return (
     <li className="my-4">
       <div className="flex">

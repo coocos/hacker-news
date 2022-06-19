@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { Posts } from ".";
+import { Post, Posts } from ".";
 
 type WrapperProps = {
   children: ReactNode;
@@ -24,7 +24,7 @@ const wrapper = ({ children }: WrapperProps) => {
 };
 
 describe("Posts", () => {
-  test("loads and shows posts", async () => {
+  test("shows posts", async () => {
     render(<Posts />, { wrapper });
 
     expect(await screen.findByText("Loading")).toBeInTheDocument();
@@ -42,11 +42,23 @@ describe("Posts", () => {
     expect(second).toHaveTextContent("671 points");
     expect(second).toHaveTextContent("135");
   });
+});
+
+describe("Post", () => {
+  const post = {
+    title: "Deflation",
+    createdAt: new Date("2022-06-16T21:51:59.000Z"),
+    url: "https://en.wikipedia.org/wiki/Deflation",
+    author: "keynes",
+    points: 6,
+    numComments: 2,
+    objectID: "31771441",
+  };
 
   test("links to post origin in shown title", async () => {
-    render(<Posts />, { wrapper });
+    render(<Post {...post} />, { wrapper });
 
-    const link = (await screen.findAllByTestId("post-link"))[0];
+    const link = await screen.findByTestId("post-link");
     expect(link).toHaveAttribute(
       "href",
       "https://en.wikipedia.org/wiki/Deflation"
@@ -55,9 +67,9 @@ describe("Posts", () => {
   });
 
   test("links to post origin in shown domain", async () => {
-    render(<Posts />, { wrapper });
+    render(<Post {...post} />, { wrapper });
 
-    const link = (await screen.findAllByTestId("origin-link"))[0];
+    const link = await screen.findByTestId("origin-link");
     expect(link).toHaveAttribute(
       "href",
       "https://en.wikipedia.org/wiki/Deflation"
@@ -66,9 +78,9 @@ describe("Posts", () => {
   });
 
   test("links to post origin in shown domain", async () => {
-    render(<Posts />, { wrapper });
+    render(<Post {...post} />, { wrapper });
 
-    const link = (await screen.findAllByTestId("origin-link"))[0];
+    const link = await screen.findByTestId("origin-link");
     expect(link).toHaveAttribute(
       "href",
       "https://en.wikipedia.org/wiki/Deflation"
