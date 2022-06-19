@@ -44,13 +44,17 @@ function Comment(comment: Props) {
 export function Comments() {
   const params = useParams();
   if (!params.storyId) {
-    return <h2>No story found</h2>;
+    return <div>No story found!</div>;
   }
-  const postWithComments = useComments(params.storyId);
-  if (postWithComments.status !== "done") {
-    return null;
+  const { isLoading, error, data } = useComments(params.storyId);
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-  const { story, comments } = postWithComments.data;
+  if (error || !data) {
+    return <div>Oops, something went went wrong.</div>;
+  }
+
+  const { story, comments } = data;
   return (
     <div>
       <header className="max-w-5xl mx-auto">

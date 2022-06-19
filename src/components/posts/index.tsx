@@ -62,18 +62,21 @@ function Post(post: Props) {
 }
 
 export function Posts() {
-  const posts = usePosts();
+  const { isLoading, error, data } = usePosts();
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (error || !data) {
+    return <div>Oops, failed to load stories</div>;
+  }
+
   return (
-    <>
-      {posts.status === "done" && (
-        <ul>
-          {posts.data.map((story) => (
-            <Post key={story.objectId} {...story} />
-          ))}
-        </ul>
-      )}
-      {posts.status === "loading" && <h1>Loading</h1>}
-      {posts.status === "error" && <h1>Failed to load stories</h1>}
-    </>
+    <ul>
+      {data.map((story) => (
+        <Post key={story.objectId} {...story} />
+      ))}
+    </ul>
   );
 }

@@ -1,6 +1,18 @@
 import { render, screen } from "@testing-library/react";
+import { ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { Posts } from ".";
+
+type WrapperProps = {
+  children: ReactNode;
+};
+
+const wrapper = ({ children }: WrapperProps) => (
+  <QueryClientProvider client={new QueryClient()}>
+    <MemoryRouter>{children}</MemoryRouter>
+  </QueryClientProvider>
+);
 
 test("loads and shows stories", async () => {
   global.fetch = jest.fn().mockImplementationOnce(() =>
@@ -32,12 +44,7 @@ test("loads and shows stories", async () => {
         }),
     })
   );
-
-  render(
-    <MemoryRouter>
-      <Posts />
-    </MemoryRouter>
-  );
+  render(<Posts />, { wrapper });
 
   expect(await screen.findByText("Loading")).toBeInTheDocument();
   const [first, second] = await screen.findAllByRole("listitem");
@@ -76,11 +83,7 @@ test("links to story in title", async () => {
     })
   );
 
-  render(
-    <MemoryRouter>
-      <Posts />
-    </MemoryRouter>
-  );
+  render(<Posts />, { wrapper });
 
   const link = (await screen.findAllByRole("link"))[0];
   expect(link).toHaveAttribute(
@@ -111,11 +114,7 @@ test("links to story in source domain", async () => {
     })
   );
 
-  render(
-    <MemoryRouter>
-      <Posts />
-    </MemoryRouter>
-  );
+  render(<Posts />, { wrapper });
 
   const link = (await screen.findAllByRole("link"))[1];
   expect(link).toHaveAttribute(

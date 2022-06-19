@@ -1,4 +1,5 @@
 import { screen, render } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Comments } from ".";
 
@@ -57,11 +58,13 @@ test("loads and shows comments", async () => {
   );
 
   render(
-    <MemoryRouter initialEntries={["/1234"]}>
-      <Routes>
-        <Route path=":storyId" element={<Comments />} />
-      </Routes>
-    </MemoryRouter>
+    <QueryClientProvider client={new QueryClient()}>
+      <MemoryRouter initialEntries={["/1234"]}>
+        <Routes>
+          <Route path=":storyId" element={<Comments />} />
+        </Routes>
+      </MemoryRouter>
+    </QueryClientProvider>
   );
 
   await screen.findByText(
