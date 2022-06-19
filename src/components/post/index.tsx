@@ -1,4 +1,3 @@
-import { usePosts as usePosts } from "../../hooks";
 import { timeSince } from "../../utils";
 import { Link } from "react-router-dom";
 
@@ -68,25 +67,5 @@ export function Post(post: PostProps) {
         </div>
       </div>
     </li>
-  );
-}
-
-export function Posts() {
-  const { isLoading, error, data } = usePosts();
-
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  if (error || !data) {
-    return <div>Oops, failed to load stories</div>;
-  }
-
-  return (
-    <ul>
-      {data.map((story) => (
-        <Post key={story.objectId} {...story} />
-      ))}
-    </ul>
   );
 }

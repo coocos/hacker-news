@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
 import { ReactNode } from "react";
+import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { Post, Posts } from ".";
+import { Post } from ".";
 
 type WrapperProps = {
   children: ReactNode;
@@ -22,27 +22,6 @@ const wrapper = ({ children }: WrapperProps) => {
     </QueryClientProvider>
   );
 };
-
-describe("Posts", () => {
-  test("shows posts", async () => {
-    render(<Posts />, { wrapper });
-
-    expect(await screen.findByText("Loading")).toBeInTheDocument();
-    const [first, second] = await screen.findAllByRole("listitem");
-
-    expect(first).toHaveTextContent("Deflation");
-    expect(first).toHaveTextContent("en.wikipedia.org");
-    expect(first).toHaveTextContent("keynes");
-    expect(first).toHaveTextContent("6 points");
-    expect(first).toHaveTextContent("2");
-
-    expect(second).toHaveTextContent("Inflation");
-    expect(second).toHaveTextContent("investopedia.com");
-    expect(second).toHaveTextContent("friedman");
-    expect(second).toHaveTextContent("671 points");
-    expect(second).toHaveTextContent("135");
-  });
-});
 
 describe("Post", () => {
   const post = {
