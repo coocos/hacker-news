@@ -24,11 +24,16 @@ function Post(post: Props) {
                 target="_blank"
                 rel="noreferrer"
                 className="text-gray-600"
+                data-testid="post-link"
               >
                 {post.title}
               </a>
             ) : (
-              <Link to={post.objectId ?? ""} className="text-gray-600">
+              <Link
+                to={post.objectId ?? ""}
+                className="text-gray-600"
+                data-testid="post-link"
+              >
                 {post.title}
               </Link>
             )}
@@ -41,6 +46,7 @@ function Post(post: Props) {
                 target="_blank"
                 rel="noreferrer"
                 className="mr-3 text-gray-600 hover:underline"
+                data-testid="origin-link"
               >
                 {new URL(post.url).hostname.replace(/^www\./i, "")}
               </a>
@@ -50,7 +56,11 @@ function Post(post: Props) {
         </div>
         <div>
           <div className="p-3 text-center bg-gray-400">
-            <Link to={post.objectId ?? ""} className="text-white">
+            <Link
+              to={post.objectId ?? ""}
+              className="text-white"
+              data-testid="comment-link"
+            >
               {post.numComments ?? 0}
             </Link>
           </div>
