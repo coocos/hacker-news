@@ -1,11 +1,20 @@
 import { usePosts as usePosts } from "../../hooks";
+import { Header } from "../header";
 import { Post } from "../post";
+import { Spinner } from "../spinner";
 
 export function PostList() {
   const { isLoading, error, data } = usePosts();
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <>
+        <Header />
+        <div className="max-w-2xl mx-auto text-gray-700">
+          <Spinner />
+        </div>
+      </>
+    );
   }
 
   if (error || !data) {
@@ -13,10 +22,13 @@ export function PostList() {
   }
 
   return (
-    <ul>
-      {data.map((story) => (
-        <Post key={story.objectId} {...story} />
-      ))}
-    </ul>
+    <>
+      <Header />
+      <ul className="max-w-2xl mx-auto">
+        {data.map((story) => (
+          <Post key={story.objectId} {...story} />
+        ))}
+      </ul>
+    </>
   );
 }

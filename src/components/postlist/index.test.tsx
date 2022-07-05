@@ -27,7 +27,6 @@ describe("Posts", () => {
   test("shows posts", async () => {
     render(<PostList />, { wrapper });
 
-    expect(await screen.findByText("Loading")).toBeInTheDocument();
     const [first, second] = await screen.findAllByRole("listitem");
 
     expect(first).toHaveTextContent("Deflation");

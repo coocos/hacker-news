@@ -1,12 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { Comments } from "./components/comments";
-import { Header } from "./components/header";
 import { PostList } from "./components/postlist";
 
 function App() {
   return (
-    <div className="m-5">
-      <Header />
+    <div className="bg-header bg-no-repeat min-h-screen p-6">
       <Routes>
         <Route index element={<PostList />} />
         <Route path=":storyId" element={<Comments />} />

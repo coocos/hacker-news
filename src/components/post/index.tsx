@@ -16,7 +16,7 @@ export function Post(post: PostProps) {
     <li className="my-4">
       <div className="flex">
         <div className="w-3/4 flex-1">
-          <h2>
+          <h2 className="font-medium">
             {post.url ? (
               <a
                 href={post.url}
@@ -37,8 +37,7 @@ export function Post(post: PostProps) {
               </Link>
             )}
           </h2>
-          <div className="flex text-gray-400">
-            <span className="mr-3">{post.author}</span>
+          <div className="flex">
             {post.url && (
               <a
                 href={post.url}
@@ -50,20 +49,23 @@ export function Post(post: PostProps) {
                 {new URL(post.url).hostname.replace(/^www\./i, "")}
               </a>
             )}
-            <span className="mr-3">{timeSince(post.createdAt)}</span>
+            <span className="mr-3 text-gray-400">{post.author}</span>
+            <span className="mr-3 text-gray-400">
+              {timeSince(post.createdAt)}
+            </span>
           </div>
         </div>
-        <div>
-          <div className="p-3 text-center bg-gray-400">
-            <Link
-              to={post.objectId ?? ""}
-              className="text-white"
-              data-testid="comment-link"
-            >
-              {post.numComments ?? 0}
-            </Link>
-          </div>
-          <span className="text-sm">{post.points} points</span>
+        <div className="flex flex-col items-center pl-4">
+          <Link
+            className="p-3 h-12 w-12 rounded-md bg-pink-700 text-white transition ease-in-out hover:no-underline hover:motion-safe:-translate-y-1 hover:bg-pink-600 hover:after:text-pink-600 flex items-center justify-center after:content-['◀'] after:text-pink-700 after:absolute after:-translate-x-7"
+            to={post.objectId ?? ""}
+            data-testid="comment-link"
+          >
+            {post.numComments ?? 0}
+          </Link>
+          <span className="my-1 text-xs text-pink-500">
+            {post.points} points
+          </span>
         </div>
       </div>
     </li>

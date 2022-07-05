@@ -81,9 +81,10 @@ export type Comment = {
   text: string | null;
   createdAt: Date;
   comments: Comment[];
+  depth: number;
 };
 
-function camelCased(comments: CommentsApiResponse[]): Comment[] {
+function camelCased(comments: CommentsApiResponse[], depth = 0): Comment[] {
   return comments.map(
     ({ id, points, author, text, created_at: createdAt, children }) => ({
       id,
@@ -91,7 +92,8 @@ function camelCased(comments: CommentsApiResponse[]): Comment[] {
       author,
       text,
       createdAt,
-      comments: camelCased(children),
+      depth,
+      comments: camelCased(children, depth + 1),
     })
   );
 }
