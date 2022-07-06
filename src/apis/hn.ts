@@ -35,15 +35,22 @@ export async function getPosts(): Promise<Post[]> {
     `${API_URL}/search?tags=front_page&hitsPerPage=37`
   );
   const json = await response.json();
-  return PostsApiResponse.parse(json).hits.map((story) => ({
-    title: story.title,
-    url: story.url,
-    author: story.author,
-    points: story.points,
-    objectId: story.objectID,
-    numComments: story.num_comments,
-    createdAt: story.created_at,
-  }));
+  return PostsApiResponse.parse(json)
+    .hits.map((story) => ({
+      title: story.title,
+      url: story.url,
+      author: story.author,
+      points: story.points,
+      objectId: story.objectID,
+      numComments: story.num_comments,
+      createdAt: story.created_at,
+    }))
+    .filter(
+      // Algolia occasionally returns ancient front page stories so filter them out
+      (story) =>
+        story.createdAt >=
+        new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
+    );
 }
 
 type CommentsApiResponse = {
