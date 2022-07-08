@@ -37,7 +37,7 @@ export function Post(post: PostProps) {
               </Link>
             )}
           </h2>
-          <div className="flex">
+          <div className="flex flex-wrap">
             {post.url && (
               <a
                 href={post.url}
