@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { Post } from ".";
+import { Story } from ".";
 
 type WrapperProps = {
   children: ReactNode;
@@ -23,21 +23,21 @@ const wrapper = ({ children }: WrapperProps) => {
   );
 };
 
-describe("Post", () => {
-  const post = {
+describe("Story", () => {
+  const story = {
     title: "Deflation",
-    createdAt: new Date("2022-06-16T21:51:59.000Z"),
+    time: new Date("2022-06-16T21:51:59.000Z"),
     url: "https://en.wikipedia.org/wiki/Deflation",
     author: "keynes",
     points: 6,
-    numComments: 2,
-    objectID: "31771441",
+    comments: 2,
+    id: 31771441,
   };
 
-  test("links to post origin in shown title", async () => {
-    render(<Post {...post} />, { wrapper });
+  test("links to origin in title", async () => {
+    render(<Story {...story} />, { wrapper });
 
-    const link = await screen.findByTestId("post-link");
+    const link = await screen.findByTestId("story-link");
     expect(link).toHaveAttribute(
       "href",
       "https://en.wikipedia.org/wiki/Deflation"
@@ -45,19 +45,8 @@ describe("Post", () => {
     expect(link).toHaveTextContent("Deflation");
   });
 
-  test("links to post origin in shown domain", async () => {
-    render(<Post {...post} />, { wrapper });
-
-    const link = await screen.findByTestId("origin-link");
-    expect(link).toHaveAttribute(
-      "href",
-      "https://en.wikipedia.org/wiki/Deflation"
-    );
-    expect(link).toHaveTextContent("en.wikipedia.org");
-  });
-
-  test("links to post origin in shown domain", async () => {
-    render(<Post {...post} />, { wrapper });
+  test("links to origin in domain", async () => {
+    render(<Story {...story} />, { wrapper });
 
     const link = await screen.findByTestId("origin-link");
     expect(link).toHaveAttribute(

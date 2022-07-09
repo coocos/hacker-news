@@ -1,12 +1,10 @@
 import { useQuery } from "react-query";
-import { getPosts, getPostWithComments } from "../apis/hn";
+import { getStories, getStoryWithComments } from "../apis/hn";
 
-export function usePostWithComments(objectId: string) {
-  return useQuery(["postWithComments", objectId], () =>
-    getPostWithComments(objectId)
-  );
+export function useStoryComments(id: string) {
+  return useQuery(["storyComments", id], () => getStoryWithComments(id));
 }
 
-export function usePosts() {
-  return useQuery("posts", getPosts);
+export function useStories() {
+  return useQuery("stories", getStories);
 }

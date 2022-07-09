@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { PostList } from ".";
+import { Stories } from ".";
 
 type WrapperProps = {
   children: ReactNode;
@@ -23,9 +23,9 @@ const wrapper = ({ children }: WrapperProps) => {
   );
 };
 
-describe("Posts", () => {
-  test("shows posts", async () => {
-    render(<PostList />, { wrapper });
+describe("Stories", () => {
+  test("shows list of stories", async () => {
+    render(<Stories />, { wrapper });
 
     const [first, second] = await screen.findAllByRole("listitem");
 

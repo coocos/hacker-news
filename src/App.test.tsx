@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import App from "./App";
+import { App } from "./App";
 
 type WrapperProps = {
   children: ReactNode;
