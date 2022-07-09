@@ -4,9 +4,6 @@ import fetch from "cross-fetch";
 
 beforeAll(() => {
   global.fetch = fetch;
-  jest
-    .spyOn(Date, "now")
-    .mockImplementation(() => new Date("2022-06-16T22:00:00.000Z").getTime());
 });
 
 beforeEach(() => {

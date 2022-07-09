@@ -25,6 +25,17 @@ const wrapper = ({ children }: WrapperProps) => {
 };
 
 describe("App", () => {
+  beforeAll(() => {
+    // nock breaks when using jest.useFakeTimers so mock Date.now instead
+    jest
+      .spyOn(Date, "now")
+      .mockImplementation(() => new Date("2022-06-16T22:00:00.000Z").getTime());
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   test("shows comments when number of comments is clicked", async () => {
     render(<App />, { wrapper });
     const user = userEvent.setup();

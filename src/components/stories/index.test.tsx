@@ -24,6 +24,17 @@ const wrapper = ({ children }: WrapperProps) => {
 };
 
 describe("Stories", () => {
+  beforeAll(() => {
+    // nock breaks when using jest.useFakeTimers so mock Date.now instead
+    jest
+      .spyOn(Date, "now")
+      .mockImplementation(() => new Date("2022-06-16T22:00:00.000Z").getTime());
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   test("shows list of stories", async () => {
     render(<Stories />, { wrapper });
 
