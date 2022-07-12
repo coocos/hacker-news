@@ -9,6 +9,9 @@
     p {
         @apply mb-3;
     }
+    pre {
+        overflow-x: scroll;
+    }
     a {
         @apply text-pink-700;
         @apply hover:underline;
