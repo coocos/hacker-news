@@ -12,6 +12,9 @@
     pre {
         overflow-x: scroll;
     }
+    p > a {
+        word-break: break-all;
+    }
     a {
         @apply text-pink-700;
         @apply hover:underline;
