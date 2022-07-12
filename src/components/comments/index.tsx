@@ -47,17 +47,14 @@ const CommentsWrapper = ({ children }: PropsWithChildren<unknown>) => (
   <div className="max-w-2xl mx-auto">{children}</div>
 );
 
-export const Comments = () => {
-  const params = useParams();
+type UrlParams = {
+  storyId: string;
+};
 
-  if (!params.storyId) {
-    return (
-      <CommentsWrapper>
-        <h1 className="text-xl">No story found!</h1>
-      </CommentsWrapper>
-    );
-  }
-  const { isLoading, error, data } = useStoryComments(params.storyId);
+export const Comments = () => {
+  const { storyId } = useParams<UrlParams>() as UrlParams;
+
+  const { isLoading, error, data } = useStoryComments(storyId);
   if (isLoading) {
     return (
       <CommentsWrapper>
