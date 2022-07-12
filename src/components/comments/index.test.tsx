@@ -38,4 +38,12 @@ describe("Comments", () => {
       "The farmer and manufacturer can no more live without profit than the labourer without wages."
     );
   });
+
+  test("updates document title with story title", async () => {
+    render(<Route path=":storyId" element={<Comments />} />, {
+      wrapper,
+    });
+    await screen.findByText("Deflation");
+    expect(document.title).toEqual("Deflation");
+  });
 });

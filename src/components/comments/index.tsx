@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useStoryComments } from "../../hooks";
 import { Spinner } from "../spinner";
 import { Comment } from "../comment";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 type StoryProps = {
   author: string;
@@ -55,6 +55,17 @@ export const Comments = () => {
   const { storyId } = useParams<UrlParams>() as UrlParams;
 
   const { isLoading, error, data } = useStoryComments(storyId);
+  const title = useRef(document.title);
+  useEffect(() => {
+    const original = title.current;
+    if (data) {
+      document.title = data.story.title;
+    }
+    return () => {
+      document.title = original;
+    };
+  }, [data]);
+
   if (isLoading) {
     return (
       <CommentsWrapper>
