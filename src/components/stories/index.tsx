@@ -2,11 +2,15 @@ import { useStories } from "../../hooks";
 import { Header } from "../header";
 import { Story, StorySkeleton } from "../story";
 import { PropsWithChildren } from "react";
+import { Footer } from "../footer";
 
 const StoriesWrapper = ({ children }: PropsWithChildren<unknown>) => (
   <>
     <Header />
-    <div className="max-w-2xl mx-auto text-gray-700">{children}</div>
+    <div className="max-w-2xl mx-auto text-gray-700">
+      {children}
+      <Footer />
+    </div>
   </>
 );
 
