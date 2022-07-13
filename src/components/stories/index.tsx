@@ -1,7 +1,6 @@
 import { useStories } from "../../hooks";
 import { Header } from "../header";
-import { Story } from "../story";
-import { Spinner } from "../spinner";
+import { Story, StorySkeleton } from "../story";
 import { PropsWithChildren } from "react";
 
 const StoriesWrapper = ({ children }: PropsWithChildren<unknown>) => (
@@ -17,7 +16,11 @@ export const Stories = () => {
   if (isLoading) {
     return (
       <StoriesWrapper>
-        <Spinner />
+        <ul>
+          {Array.from(Array(20).keys()).map((key) => (
+            <StorySkeleton key={key} />
+          ))}
+        </ul>
       </StoriesWrapper>
     );
   }

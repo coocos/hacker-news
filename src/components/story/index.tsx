@@ -11,6 +11,21 @@ type StoryProps = {
   time: Date;
 };
 
+export const StorySkeleton = () => (
+  <li className="my-4 animate-pulse">
+    <div className="flex">
+      <div className="w-3/4 flex-1">
+        <div className="bg-gray-300 w-3/4 h-4 rounded-md"></div>
+        <div className="bg-gray-300 w-1/2 h-4 my-1 rounded-md"></div>
+      </div>
+      <div className="flex flex-col items-center pl-4 pr-2 opacity-50">
+        <div className="p-3 h-12 w-12 rounded-md bg-pink-700 flex items-center justify-center after:content-['◀'] after:text-pink-700 after:absolute after:-translate-x-7"></div>
+        <div className="my-1 text-xs rounded-md bg-pink-700 text-pink-700 h-4 w-full"></div>
+      </div>
+    </div>
+  </li>
+);
+
 export const Story = (story: StoryProps) => (
   <li className="my-4">
     <div className="flex">
@@ -60,7 +75,7 @@ export const Story = (story: StoryProps) => (
         >
           {story.comments}
         </Link>
-        <span className="my-1 text-xs text-pink-500">
+        <span className="my-1 text-xs text-pink-700">
           {story.points} points
         </span>
       </div>

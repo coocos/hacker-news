@@ -35,8 +35,19 @@ describe("Stories", () => {
     jest.clearAllMocks();
   });
 
+  test("displays skeleton loaders", async () => {
+    render(<Stories />, { wrapper });
+
+    const stories = await screen.findAllByRole("listitem");
+    expect(stories.length).toEqual(20);
+    stories.forEach((story) => expect(story).toHaveClass("animate-pulse"));
+  });
+
   test("shows list of stories", async () => {
     render(<Stories />, { wrapper });
+
+    // Wait for skeleton loaders to complete
+    await screen.findByText("Deflation");
 
     const [first, second] = await screen.findAllByRole("listitem");
 
