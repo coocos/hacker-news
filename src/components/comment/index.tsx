@@ -9,6 +9,18 @@ type CommentProps = {
   depth: number;
 };
 
+export const CommentSkeleton = () => (
+  <div className="my-6 animate-pulse">
+    <div className="pb-2 flex items-center">
+      <div className="h-4 w-16 rounded-lg bg-pink-600"></div>
+    </div>
+    <div>
+      <div className="w-full h-4 my-6 rounded-lg bg-gray-300"></div>
+      <div className="w-full h-4 my-6 rounded-lg bg-gray-300"></div>
+    </div>
+  </div>
+);
+
 export const Comment = (comment: CommentProps) => (
   <div
     className={
