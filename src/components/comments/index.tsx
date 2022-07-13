@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useStoryComments } from "../../hooks";
+import { useScrollToTop, useStoryComments } from "../../hooks";
 import { Spinner } from "../spinner";
 import { Comment } from "../comment";
 import { PropsWithChildren, useEffect, useRef } from "react";
@@ -65,6 +65,7 @@ export const Comments = () => {
       document.title = original;
     };
   }, [data]);
+  useScrollToTop();
 
   if (isLoading) {
     return (

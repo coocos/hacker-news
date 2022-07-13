@@ -4,6 +4,7 @@ import fetch from "cross-fetch";
 
 beforeAll(() => {
   global.fetch = fetch;
+  global.scrollTo = jest.fn();
 });
 
 beforeEach(() => {
