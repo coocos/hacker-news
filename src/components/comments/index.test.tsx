@@ -1,4 +1,4 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -43,7 +43,7 @@ describe("Comments", () => {
     render(<Route path=":storyId" element={<Comments />} />, {
       wrapper,
     });
-    await screen.findByText("Deflation");
-    expect(document.title).toEqual("Deflation");
+
+    await waitFor(() => expect(document.title).toEqual("Deflation"));
   });
 });
