@@ -36,7 +36,7 @@ export const Comments = () => {
           {Array.from(Array(5).keys()).map((key) => (
             <div key={key}>
               <CommentSkeleton />
-              <hr className="my-4" />
+              <hr className="my-4 dark:border-gray-500" />
             </div>
           ))}
         </div>
@@ -60,7 +60,7 @@ export const Comments = () => {
         {comments.map((comment) => (
           <div key={comment.id}>
             <Comment {...comment} />
-            <hr className="my-4" />
+            <hr className="my-4 dark:border-gray-500" />
           </div>
         ))}
       </div>

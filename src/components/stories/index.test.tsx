@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { Stories } from ".";
+import { ThemeProvider } from "../../context/theme";
 
 type WrapperProps = {
   children: ReactNode;
@@ -18,7 +19,9 @@ const wrapper = ({ children }: WrapperProps) => {
   });
   return (
     <QueryClientProvider client={client}>
-      <MemoryRouter>{children}</MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter>{children}</MemoryRouter>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

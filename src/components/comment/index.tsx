@@ -1,4 +1,5 @@
 import { timeSince } from "../../utils";
+import { UserIcon } from "../icons/user";
 
 type CommentProps = {
   id: number;
@@ -15,8 +16,8 @@ export const CommentSkeleton = () => (
       <div className="h-4 w-16 rounded-lg bg-pink-600"></div>
     </div>
     <div>
-      <div className="w-full h-4 my-6 rounded-lg bg-gray-300"></div>
-      <div className="w-full h-4 my-6 rounded-lg bg-gray-300"></div>
+      <div className="w-full h-4 my-6 rounded-lg bg-gray-300 dark:bg-gray-600"></div>
+      <div className="w-full h-4 my-6 rounded-lg bg-gray-300 dark:bg-gray-600"></div>
     </div>
   </div>
 );
@@ -26,22 +27,11 @@ export const Comment = (comment: CommentProps) => (
     className={
       comment.depth === 0
         ? "my-6"
-        : "pl-4 my-6 border-l border-dashed border-gray-300"
+        : "pl-4 my-6 border-l border-dashed border-gray-300 dark:border-gray-500"
     }
   >
-    <div className="pb-2 flex items-center text-pink-800">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fillRule="evenodd"
-          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-          clipRule="evenodd"
-        />
-      </svg>
+    <div className="pb-2 flex items-center text-pink-800 dark:text-pink-500">
+      <UserIcon />
       <span className="ml-2">{comment.author}</span>
       <span className="ml-auto">{timeSince(comment.time)}</span>
     </div>
@@ -49,7 +39,7 @@ export const Comment = (comment: CommentProps) => (
       {comment.text ? (
         <p
           dangerouslySetInnerHTML={{ __html: comment.text }}
-          className="text-gray-600"
+          className="text-gray-600 dark:text-gray-300"
         />
       ) : (
         <p className="text-gray-400">[deleted]</p>

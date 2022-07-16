@@ -15,68 +15,80 @@ export const StorySkeleton = () => (
   <li className="my-4 animate-pulse">
     <div className="flex">
       <div className="w-3/4 flex-1">
-        <div className="bg-gray-300 w-3/4 h-4 rounded-md"></div>
-        <div className="bg-gray-300 w-1/2 h-4 my-1 rounded-md"></div>
+        <div className="bg-gray-300 dark:bg-gray-700 w-3/4 h-4 rounded-md"></div>
+        <div className="bg-gray-300 dark:bg-gray-700 w-1/2 h-4 my-1 rounded-md"></div>
       </div>
       <div className="flex flex-col items-center pl-4 pr-2 opacity-50">
-        <div className="p-3 h-12 w-12 rounded-md bg-pink-700 flex items-center justify-center after:content-['◀'] after:text-pink-700 after:absolute after:-translate-x-7"></div>
-        <div className="my-1 text-xs rounded-md bg-pink-700 text-pink-700 h-4 w-full"></div>
+        <div className="p-3 h-12 w-12 rounded-md bg-pink-500 flex items-center justify-center after:content-['◀'] after:text-pink-500 after:absolute after:-translate-x-7"></div>
+        <div className="my-1 text-xs rounded-md bg-pink-500 h-4 w-full"></div>
       </div>
     </div>
   </li>
 );
 
-export const Story = (story: StoryProps) => (
+export const Story = ({
+  url,
+  title,
+  id,
+  author,
+  time,
+  points,
+  comments,
+}: StoryProps) => (
   <li className="my-4">
     <div className="flex">
       <div className="w-3/4 flex-1">
         <h2 className="font-medium">
-          {story.url ? (
+          {url ? (
             <a
-              href={story.url}
+              href={url}
               target="_blank"
               rel="noreferrer"
-              className="text-gray-600"
+              className="text-gray-600 dark:text-gray-200"
               data-testid="story-link"
             >
-              {story.title}
+              {title}
             </a>
           ) : (
             <Link
-              to={story.id.toString()}
-              className="text-gray-600"
+              to={id.toString()}
+              className="text-gray-600 dark:text-gray-200"
               data-testid="story-link"
             >
-              {story.title}
+              {title}
             </Link>
           )}
         </h2>
         <div className="flex flex-wrap">
-          {story.url && (
+          {url && (
             <a
-              href={story.url}
+              href={url}
               target="_blank"
               rel="noreferrer"
-              className="mr-3 text-gray-600 hover:underline"
+              className="mr-3 text-gray-600 dark:text-gray-200 hover:underline"
               data-testid="origin-link"
             >
-              {new URL(story.url).hostname.replace(/^www\./i, "")}
+              {new URL(url).hostname.replace(/^www\./i, "")}
             </a>
           )}
-          <span className="mr-3 text-gray-400">{story.author}</span>
-          <span className="mr-3 text-gray-400">{timeSince(story.time)}</span>
+          <span className="mr-3 text-gray-400 dark:text-gray-400">
+            {author}
+          </span>
+          <span className="mr-3 text-gray-400 dark:text-gray-400">
+            {timeSince(time)}
+          </span>
         </div>
       </div>
       <div className="flex flex-col items-center pl-4">
         <Link
-          className="p-3 h-12 w-12 rounded-md bg-pink-700 text-white transition ease-in-out hover:no-underline hover:motion-safe:-translate-y-1 hover:bg-pink-600 hover:after:text-pink-600 flex items-center justify-center after:content-['◀'] after:text-pink-700 after:absolute after:-translate-x-7"
-          to={story.id.toString()}
+          className="p-3 h-12 w-12 rounded-md bg-pink-500 text-white dark:text-white transition ease-in-out hover:no-underline hover:motion-safe:-translate-y-1 flex items-center justify-center after:content-['◀'] after:text-pink-500 after:absolute after:-translate-x-7"
+          to={id.toString()}
           data-testid="comment-link"
         >
-          {story.comments}
+          {comments}
         </Link>
-        <span className="my-1 text-xs text-pink-700">
-          {story.points} points
+        <span className="my-1 text-xs text-gray-600 dark:text-gray-200">
+          {points} points
         </span>
       </div>
     </div>

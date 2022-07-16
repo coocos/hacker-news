@@ -3,9 +3,10 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        header: "url('/src/components/header/background.svg')",
+        header: "url('/src/assets/background.svg')",
       },
     },
   },
   plugins: [],
+  darkMode: "class",
 };
