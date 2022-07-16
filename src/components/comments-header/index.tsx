@@ -7,22 +7,22 @@ type HeaderProps = {
   url: string | null;
 };
 
-export const CommentsHeader = (props: HeaderProps) => (
+export const CommentsHeader = ({ title, url, text }: HeaderProps) => (
   <header className="mb-8 py-4">
     <h1 className="text-center text-lg mx-auto max-w-2xl p-4 rounded-t-md bg-pink-500 text-gray-100">
-      {props.title}
+      {title}
     </h1>
     <section className="p-6 rounded-b-md shadow-sm bg-white dark:bg-gray-800 dark:border-gray-600 dark:border dark:border-t-0 overflow-x-clip">
-      {props.url && (
-        <a href={props.url} rel="noreferrer" className="flex justify-center">
+      {url && (
+        <a href={url} rel="noreferrer" className="flex justify-center">
           <LinkIcon />
-          {new URL(props.url).hostname.replace(/^www\./i, "")}
+          {new URL(url).hostname.replace(/^www\./i, "")}
         </a>
       )}
-      {props.text && (
+      {text && (
         <p
           className="my-4 dark:text-gray-300"
-          dangerouslySetInnerHTML={{ __html: props.text }}
+          dangerouslySetInnerHTML={{ __html: text }}
         />
       )}
     </section>

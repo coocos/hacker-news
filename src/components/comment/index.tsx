@@ -22,33 +22,37 @@ export const CommentSkeleton = () => (
   </div>
 );
 
-export const Comment = (comment: CommentProps) => (
+export const Comment = ({
+  depth,
+  author,
+  time,
+  text,
+  comments,
+}: CommentProps) => (
   <div
     className={
-      comment.depth === 0
+      depth === 0
         ? "my-6"
         : "pl-4 my-6 border-l border-dashed border-gray-300 dark:border-gray-500"
     }
   >
     <div className="pb-2 flex items-center text-pink-800 dark:text-pink-500">
       <UserIcon />
-      <span className="ml-2">{comment.author}</span>
-      <span className="ml-auto">{timeSince(comment.time)}</span>
+      <span className="ml-2">{author}</span>
+      <span className="ml-auto">{timeSince(time)}</span>
     </div>
     <div>
-      {comment.text ? (
+      {text ? (
         <p
-          dangerouslySetInnerHTML={{ __html: comment.text }}
+          dangerouslySetInnerHTML={{ __html: text }}
           className="text-gray-600 dark:text-gray-300"
         />
       ) : (
         <p className="text-gray-400">[deleted]</p>
       )}
     </div>
-    {comment.comments.length
-      ? comment.comments.map((comment) => (
-          <Comment key={comment.id} {...comment} />
-        ))
+    {comments.length
+      ? comments.map((comment) => <Comment key={comment.id} {...comment} />)
       : null}
   </div>
 );
