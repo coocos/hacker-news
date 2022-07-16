@@ -1,6 +1,6 @@
-import { useStories } from "../../hooks";
 import { Header } from "../header";
 import { Story, StorySkeleton } from "../story";
+import { useStories } from "../../hooks/api";
 import { PropsWithChildren } from "react";
 import { Footer } from "../footer";
 

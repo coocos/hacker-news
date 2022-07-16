@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useScrollToTop, useStoryComments } from "../../hooks";
+import { useScrollToTop } from "../../hooks/scroll";
+import { useStoryComments } from "../../hooks/api";
 import { Comment, CommentSkeleton } from "../comment";
 import { PropsWithChildren, useEffect, useRef } from "react";
 import { CommentsHeader, CommentsHeaderSkeleton } from "../comments-header";
