@@ -7,7 +7,7 @@ export const App = () => {
   const [theme] = useTheme();
   return (
     <main className={theme}>
-      <div className="bg-header md:[background-position-y:-3rem] xl:[background-position-y:-6rem] bg-gray-50 dark:bg-gray-800 bg-no-repeat min-h-screen p-6">
+      <div className="bg-header md:[background-position-y:-3rem] xl:[background-position-y:-6rem] bg-gray-50 dark:bg-gray-800 transition-colors ease-out duration-500 bg-no-repeat min-h-screen p-6">
         <Routes>
           <Route index element={<Stories />} />
           <Route path=":storyId" element={<Comments />} />
