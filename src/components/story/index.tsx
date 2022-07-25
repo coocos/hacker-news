@@ -19,7 +19,7 @@ export const StorySkeleton = () => (
         <div className="bg-gray-300 dark:bg-gray-700 w-1/2 h-4 my-1 rounded-md"></div>
       </div>
       <div className="flex flex-col items-center pl-4 pr-2 opacity-50">
-        <div className="p-3 h-12 w-12 rounded-md bg-pink-500 flex items-center justify-center after:content-['◀'] after:text-pink-500 after:absolute after:-translate-x-7"></div>
+        <div className="p-3 h-12 w-12 rounded-md bg-pink-500 flex items-center justify-center before:content-[''] before:border-transparent before:border-r-pink-500 before:border-solid before:border-r-[0.75rem] before:border-t-[0.5rem] before:border-b-[0.5rem] before:absolute before:-translate-x-[1.75rem]"></div>
         <div className="my-1 text-xs rounded-md bg-pink-500 h-4 w-full"></div>
       </div>
     </div>
@@ -81,7 +81,7 @@ export const Story = ({
       </div>
       <div className="flex flex-col items-center pl-4">
         <Link
-          className="p-3 h-12 w-12 rounded-md bg-pink-500 text-white dark:text-white transition ease-in-out hover:no-underline hover:motion-safe:-translate-y-1 flex items-center justify-center after:content-['◀'] after:text-pink-500 after:absolute after:-translate-x-7"
+          className="p-3 h-12 w-12 rounded-md bg-pink-500 text-white dark:text-white transition ease-in-out hover:no-underline hover:motion-safe:-translate-y-1 flex items-center justify-center before:content-[''] before:border-transparent before:border-r-pink-500 before:border-solid before:border-r-[0.75rem] before:border-t-[0.5rem] before:border-b-[0.5rem] before:absolute before:-translate-x-[1.75rem]"
           to={id.toString()}
           data-testid="comment-link"
         >
