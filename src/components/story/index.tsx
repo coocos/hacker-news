@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 type StoryProps = {
   id: number;
   title: string;
-  url: string | null;
+  url?: string;
   points: number;
   author: string;
   comments: number;

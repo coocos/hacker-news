@@ -5,7 +5,7 @@ const API_URL = "https://hn.algolia.com/api/v1";
 type Story = {
   id: number;
   title: string;
-  url: string | null;
+  url?: string;
   author: string;
   points: number;
   comments: number;
@@ -14,8 +14,8 @@ type Story = {
 
 type Comment = {
   id: number;
-  author: string | null;
-  text: string | null;
+  author?: string;
+  text?: string;
   time: Date;
   comments: Comment[];
   depth: number;
@@ -25,15 +25,15 @@ const StoryListApiResponse = z.object({
   hits: z
     .object({
       title: z.string(),
-      url: z.string().nullable(),
-      points: z.number(),
+      url: z.string().optional(),
+      points: z.number().optional(),
       author: z.string(),
       objectID: z.preprocess((arg) => {
         if (typeof arg === "string") {
           return parseInt(arg);
         }
       }, z.number()),
-      num_comments: z.number().nullable(),
+      num_comments: z.number().optional(),
       created_at: z.preprocess((arg) => {
         if (typeof arg === "string") {
           return new Date(arg);
@@ -53,7 +53,7 @@ export async function getStories(): Promise<Story[]> {
       title: story.title,
       url: story.url,
       author: story.author,
-      points: story.points,
+      points: story.points ?? 0,
       id: story.objectID,
       comments: story.num_comments ?? 0,
       time: story.created_at,
@@ -66,8 +66,8 @@ export async function getStories(): Promise<Story[]> {
 
 type CommentItemApiResponse = {
   id: number;
-  author: string | null;
-  text: string | null;
+  author?: string;
+  text?: string;
   created_at: Date;
   children: CommentItemApiResponse[];
 };
@@ -75,8 +75,8 @@ type CommentItemApiResponse = {
 const CommentItem: z.ZodType<CommentItemApiResponse> = z.lazy(() =>
   z.object({
     id: z.number(),
-    author: z.string().nullable(),
-    text: z.string().nullable(),
+    author: z.string(),
+    text: z.string().optional(),
     created_at: z.preprocess((arg) => {
       if (typeof arg == "string" || arg instanceof Date) {
         return new Date(arg);
@@ -89,10 +89,10 @@ const CommentItem: z.ZodType<CommentItemApiResponse> = z.lazy(() =>
 const StoryItemApiResponse = z.object({
   id: z.number(),
   title: z.string(),
-  points: z.number(),
+  points: z.number().nullable(),
   author: z.string(),
   text: z.string().nullable(),
-  url: z.string().nullable(),
+  url: z.string().optional(),
   created_at: z.preprocess((arg) => {
     if (typeof arg == "string" || arg instanceof Date) {
       return new Date(arg);
@@ -118,7 +118,7 @@ function remapCommentFormat(
 }
 
 export async function getStoryWithComments(id: string | number): Promise<{
-  story: Omit<Story, "comments"> & { text: string | null };
+  story: Omit<Story, "comments"> & { text?: string };
   comments: Comment[];
 }> {
   const response = await fetch(`${API_URL}/items/${id}`);
@@ -127,11 +127,11 @@ export async function getStoryWithComments(id: string | number): Promise<{
     story: {
       id: story.id,
       author: story.author,
-      text: story.text,
+      text: story.text ?? "",
       title: story.title,
       url: story.url,
       time: story.created_at,
-      points: story.points,
+      points: story.points ?? 0,
     },
     comments: remapCommentFormat(story.children),
   };

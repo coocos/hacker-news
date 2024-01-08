@@ -3,8 +3,8 @@ import { UserIcon } from "../icons/user";
 
 type CommentProps = {
   id: number;
-  author: string | null;
-  text: string | null;
+  author?: string;
+  text?: string;
   time: Date;
   comments: CommentProps[];
   depth: number;

@@ -3,8 +3,8 @@ import { LinkIcon } from "../icons/link";
 type HeaderProps = {
   author: string;
   title: string;
-  text: string | null;
-  url: string | null;
+  text?: string;
+  url?: string;
 };
 
 export const CommentsHeader = ({ title, url, text }: HeaderProps) => (
